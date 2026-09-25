@@ -1,0 +1,11 @@
+{
+  "name": "quarto-pedagogico",
+  "version": "0.1.0",
+  "description": "QUARTO Pedagógico Amazônico — jogo para ensino de Pensamento Computacional (IComp/UFAM)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "test": "node --test"
+  }
+}

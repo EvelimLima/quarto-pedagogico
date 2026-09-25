@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QUARTO Amazônico</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="encontro">
+  <div class="encontro-texto">
+    <h1>QUARTO Amazônico</h1>
+    <p>Os Guerreiros da Terra Firme e os Guerreiros do Igarapé viviam em discórdia. O Pajé Timbira consagrou 16 fragmentos da floresta e traçou 16 moradas numa clareira: a disputa agora se resolve no jogo.</p>
+  </div>
+  <svg viewBox="0 0 1200 44" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,26 C150,6 300,40 460,22 C620,4 780,38 940,20 C1060,8 1140,24 1200,16 V44 H0 Z" fill="#C49A5C"/>
+    <path d="M0,34 C180,20 340,44 520,32 C700,20 860,44 1040,30 C1110,25 1160,30 1200,28 V44 H0 Z" fill="var(--pagina)"/>
+  </svg>
+</header>
+
+<main class="jogo">
+  <section class="clareira" aria-label="Tabuleiro da clareira sagrada">
+    <div id="tabuleiro" class="tabuleiro"></div>
+  </section>
+
+  <aside class="painel">
+    <div id="vez" class="vez" aria-live="polite"></div>
+
+    <section>
+      <h2>Peça entregue</h2>
+      <div id="mao" class="mao"></div>
+    </section>
+
+    <section>
+      <h2>Fragmentos na reserva</h2>
+      <div id="reserva" class="reserva"></div>
+    </section>
+
+    <p id="placar" class="placar"></p>
+    <div class="acoes">
+      <button id="nova" class="botao" type="button">Nova partida</button>
+      <a class="botao" href="tutorial.html">Como jogar</a>
+    </div>
+  </aside>
+</main>
+
+<div id="fim" class="fim" hidden role="dialog" aria-modal="true" aria-labelledby="fim-titulo">
+  <div class="fim-caixa">
+    <h2 id="fim-titulo"></h2>
+    <div id="fim-texto"></div>
+    <div class="acoes">
+      <button id="fim-nova" class="botao principal" type="button">Jogar de novo</button>
+      <button id="fim-ver" class="botao" type="button">Ver o tabuleiro</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Como jogar — QUARTO Amazônico</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="encontro">
+  <div class="encontro-texto">
+    <h1><a href="index.html">QUARTO Amazônico</a></h1>
+    <p>Como jogar e como ler os fragmentos.</p>
+  </div>
+  <svg viewBox="0 0 1200 44" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,26 C150,6 300,40 460,22 C620,4 780,38 940,20 C1060,8 1140,24 1200,16 V44 H0 Z" fill="#C49A5C"/>
+    <path d="M0,34 C180,20 340,44 520,32 C700,20 860,44 1040,30 C1110,25 1160,30 1200,28 V44 H0 Z" fill="var(--pagina)"/>
+  </svg>
+</header>
+
+<main class="tutorial">
+  <h2>A regra que muda tudo</h2>
+  <ol>
+    <li>Na sua vez, você não escolhe a sua peça: escolhe na reserva a peça que o outro povo vai jogar.</li>
+    <li>O outro povo coloca essa peça em qualquer casa vazia da clareira.</li>
+    <li>Depois, é ele quem escolhe uma peça para você.</li>
+    <li>Vence quem completar uma linha, coluna ou diagonal com 4 peças que tenham pelo menos uma característica em comum.</li>
+  </ol>
+  <p>Cuidado ao entregar uma peça: se ela completar uma linha, quem vence é o outro povo.</p>
+
+  <h2>Os fragmentos</h2>
+  <p>Cada fragmento tem 4 características, e cada característica tem só 2 valores. Por isso existem 2 × 2 × 2 × 2 = 16 fragmentos diferentes, e cada um pode ser escrito com 4 bits.</p>
+  <div class="legenda-caixa">
+    <table class="legenda">
+      <thead><tr><th>Característica</th><th>Bit 0</th><th>Bit 1</th></tr></thead>
+      <tbody id="legenda"></tbody>
+    </table>
+  </div>
+  <p>Exemplo: a peça <b>1010</b> é escura, baixa, quadrada e maciça.</p>
+
+  <p class="acoes"><a class="botao principal" href="index.html">Voltar ao jogo</a></p>
+</main>
+
+<script type="module">
+  import { LEGENDA } from './js/logica/pecas.js';
+  import { pecaSVG } from './js/tela/desenho.js';
+
+  // peça-exemplo para cada valor: parte de 0000 e liga só o bit da característica.
+  const exemplo = (i, valor) => pecaSVG(valor << (3 - i));
+  const maiuscula = t => t.charAt(0).toUpperCase() + t.slice(1);
+
+  document.querySelector('#legenda').innerHTML = LEGENDA.map((a, i) => `
+    <tr>
+      <td>${a.atributo}</td>
+      <td><span class="exemplo">${exemplo(i, 0)}</span>${maiuscula(a.curto[0])}</td>
+      <td><span class="exemplo">${exemplo(i, 1)}</span>${maiuscula(a.curto[1])}</td>
+    </tr>`).join('');
+</script>
+</body>
+</html>

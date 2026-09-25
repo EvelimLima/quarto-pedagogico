@@ -1,0 +1,160 @@
+/* ===== Fontes locais (funcionam offline) ===== */
+@font-face { font-family: "Baloo 2"; font-weight: 600; font-display: swap; src: url("../assets/fonts/baloo-2-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Baloo 2"; font-weight: 800; font-display: swap; src: url("../assets/fonts/baloo-2-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Atkinson Hyperlegible"; font-weight: 400; font-display: swap; src: url("../assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Atkinson Hyperlegible"; font-weight: 700; font-display: swap; src: url("../assets/fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"); }
+
+/* ===== Tokens de cor (claro / escuro) ===== */
+:root {
+  --pagina: #E2E8DA;
+  --tinta: #1B2A1F;
+  --suave: #4E5E52;
+  --painel: #F2F5EE;
+  --linha: #C3CDB9;
+  --terra-firme: #2F5A3A;
+  --igarape: #1F6475;
+  --terra: #7A5738;
+  --casa: #5A3E26;
+  --casa-livre: #8A6843;
+  --sol: #F2B705;
+  --rio-negro: #24170F;
+  --solimoes: #C49A5C;
+  --titulo: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --texto: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pagina: #101913; --tinta: #E4EADC; --suave: #A6B3A4; --painel: #18251C;
+    --linha: #2C3D30; --terra-firme: #7DB388; --igarape: #62B6C8;
+  }
+}
+:root[data-theme="dark"] {
+  --pagina: #101913; --tinta: #E4EADC; --suave: #A6B3A4; --painel: #18251C;
+  --linha: #2C3D30; --terra-firme: #7DB388; --igarape: #62B6C8;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--pagina); color: var(--tinta);
+  font-family: var(--texto); font-size: 1.0625rem; line-height: 1.5;
+}
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--sol); outline-offset: 3px; }
+
+/* ===== Cabeçalho: o encontro das águas ===== */
+.encontro { background: var(--rio-negro); color: #F1E4CC; }
+.encontro-texto { max-width: 68rem; margin: 0 auto; padding: 1.5rem 1.25rem 0.5rem; }
+.encontro h1 {
+  font-family: var(--titulo); font-weight: 800; font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1; margin: 0 0 0.5rem; letter-spacing: -0.01em;
+}
+.encontro h1 a { text-decoration: none; }
+.encontro p { margin: 0; max-width: 40rem; color: #D9C7A6; }
+.encontro svg { display: block; width: 100%; height: 44px; }
+
+/* ===== Jogo ===== */
+.jogo {
+  max-width: 68rem; margin: 0 auto; padding: 1.5rem 1.25rem 2rem;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem);
+  gap: 2rem; align-items: start;
+}
+@media (max-width: 52rem) {
+  .jogo { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+}
+
+.clareira {
+  background: var(--terra); border-radius: 22px; padding: clamp(0.75rem, 3vw, 1.5rem);
+  box-shadow: inset 0 0 0 4px rgba(0,0,0,.12), 0 10px 24px rgba(20,12,4,.25);
+  width: 100%; max-width: 34rem; justify-self: center;
+}
+.tabuleiro {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.4rem, 2vw, 0.9rem);
+  aspect-ratio: 1;
+}
+.casa {
+  border: 0; padding: 6%; border-radius: 50%; background: var(--casa);
+  box-shadow: inset 0 4px 8px rgba(0,0,0,.45);
+  display: grid; place-items: center; aspect-ratio: 1; cursor: default;
+  transition: background-color .15s ease;
+}
+.casa svg, .ficha svg { width: 100%; height: 100%; display: block; }
+.casa.livre { cursor: pointer; background: var(--casa-livre); }
+.casa.livre:hover { background: #A07B51; }
+.casa.vence { box-shadow: inset 0 4px 8px rgba(0,0,0,.45), 0 0 0 4px var(--sol); }
+@media (prefers-reduced-motion: no-preference) {
+  .casa.vence { animation: brilho 1.2s ease-out 2; }
+  @keyframes brilho { 50% { box-shadow: inset 0 4px 8px rgba(0,0,0,.45), 0 0 0 9px var(--sol); } }
+}
+
+/* ===== Painel ===== */
+.painel { display: grid; gap: 1.25rem; }
+.vez {
+  border-left: 6px solid var(--cor-vez, var(--terra-firme));
+  background: var(--painel); border-radius: 0 12px 12px 0; padding: 0.9rem 1rem;
+}
+.vez strong { display: block; font-family: var(--titulo); font-size: 1.35rem; line-height: 1.15; color: var(--cor-vez); }
+.vez span { color: var(--suave); }
+.painel h2 { font-family: var(--titulo); font-weight: 600; font-size: 1.1rem; margin: 0 0 0.5rem; }
+
+.mao { display: flex; gap: 1rem; align-items: center; min-height: 6rem; }
+.mao-peca { width: 5.5rem; height: 5.5rem; flex: none; background: var(--casa); border-radius: 50%; padding: 0.4rem; box-shadow: inset 0 4px 8px rgba(0,0,0,.45); }
+.mao-desc { margin: 0 0 0.4rem; }
+.mao-vazia { color: var(--suave); margin: 0; }
+.bits { display: flex; gap: 0.35rem; }
+.bit { display: grid; justify-items: center; background: var(--painel); border: 1px solid var(--linha); border-radius: 8px; padding: 0.15rem 0.35rem; min-width: 3.2rem; }
+.bit b { font-family: var(--titulo); font-size: 1.4rem; line-height: 1.1; }
+.bit small { font-size: 0.72rem; color: var(--suave); }
+
+.reserva { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+.ficha {
+  border: 1px solid var(--linha); background: var(--painel); border-radius: 12px;
+  padding: 0.3rem; aspect-ratio: 1; cursor: default;
+}
+.ficha.disponivel { cursor: pointer; }
+.ficha.disponivel:hover { border-color: var(--tinta); }
+.ficha.usada { border-style: dashed; background: transparent; }
+.reserva[aria-disabled="true"] .ficha:not(.usada) { opacity: .55; }
+
+/* No celular, "de quem é a vez" fica acima do tabuleiro */
+@media (max-width: 52rem) {
+  .painel { display: contents; }
+  .vez { order: -1; }
+}
+
+.placar { display: flex; gap: 1rem; flex-wrap: wrap; color: var(--suave); margin: 0; }
+.placar b { color: var(--tinta); }
+.acoes { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+.botao {
+  border: 2px solid var(--tinta); background: transparent; border-radius: 999px;
+  padding: 0.45rem 1.1rem; cursor: pointer; font-weight: 700; text-decoration: none;
+  display: inline-block;
+}
+.botao.principal { background: var(--tinta); color: var(--pagina); }
+
+/* ===== Fim de partida ===== */
+.fim {
+  position: fixed; inset: 0; background: rgba(10,14,10,.55); display: grid; place-items: center;
+  padding: 1.25rem; z-index: 10;
+}
+.fim[hidden] { display: none; }
+.fim-caixa {
+  background: var(--painel); color: var(--tinta); border-radius: 18px; max-width: 30rem; width: 100%;
+  padding: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,.4);
+}
+.fim-caixa h2 { font-family: var(--titulo); font-size: 1.9rem; line-height: 1.1; margin: 0 0 0.6rem; }
+.fim-caixa ul { padding-left: 1.2rem; }
+
+/* ===== Tutorial ===== */
+.tutorial { max-width: 44rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+.tutorial h2 { font-family: var(--titulo); font-weight: 600; font-size: 1.5rem; margin: 2rem 0 0.5rem; }
+.tutorial li { margin-bottom: 0.4rem; }
+.legenda-caixa { overflow-x: auto; }
+.legenda { border-collapse: collapse; }
+.legenda th, .legenda td { text-align: left; padding: 0.4rem 1rem 0.4rem 0; border-bottom: 1px solid var(--linha); vertical-align: middle; }
+.legenda .exemplo { width: 3rem; height: 3rem; display: inline-block; vertical-align: middle; background: var(--casa); border-radius: 50%; padding: 0.2rem; margin-right: 0.4rem; }
+.legenda .exemplo svg { width: 100%; height: 100%; display: block; }
