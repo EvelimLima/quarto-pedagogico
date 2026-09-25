@@ -67,3 +67,5 @@ Ordem dos bits: **cor, altura, forma, estrutura**.
 | Estrutura       | Maciça                          | Oca (toca de bicho)       |
 
 Exemplo: `1010` = escura, baixa, quadrada, maciça.
+
+Projeto em desenvolvimento
