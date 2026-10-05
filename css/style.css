@@ -17,7 +17,7 @@
   --casa: #5A3E26;
   --casa-livre: #8A6843;
   --sol: #F2B705;
-  --rio-negro: #24170F;
+  --rio-negro: #563a28;
   --solimoes: #C49A5C;
   --titulo: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
   --texto: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
@@ -27,7 +27,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --pagina: #101913; --tinta: #E4EADC; --suave: #A6B3A4; --painel: #18251C;
+    --pagina: #5f806b; --tinta: #E4EADC; --suave: #A6B3A4; --painel: #18251C;
     --linha: #2C3D30; --terra-firme: #7DB388; --igarape: #62B6C8;
   }
 }
