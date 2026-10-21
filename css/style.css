@@ -19,6 +19,9 @@
   --sol: #F2B705;
   --rio-negro: #563a28;
   --solimoes: #C49A5C;
+  --tf-forte: #2F5A3A;   /* faixa da vez: mesmas cores nos temas claro e escuro */
+  --ig-forte: #1F6475;
+  --empate: #4E5E52;
   --titulo: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
   --texto: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   box-sizing: border-box;
@@ -69,8 +72,8 @@ a { color: inherit; }
 
 .clareira {
   background: var(--terra); border-radius: 22px; padding: clamp(0.75rem, 3vw, 1.5rem);
-  box-shadow: inset 0 0 0 4px rgba(0,0,0,.12), 0 10px 24px rgba(20,12,4,.25);
-  width: 100%; max-width: 34rem; justify-self: center;
+  box-shadow: inset 0 0 0 4px rgba(0,0,0,.12), 0 0 0 5px var(--cor-vez, transparent), 0 10px 24px rgba(20,12,4,.25);  width: 100%; max-width: 34rem; justify-self: center;
+  transition: box-shadow .3s ease;
 }
 .tabuleiro {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.4rem, 2vw, 0.9rem);
@@ -94,11 +97,25 @@ a { color: inherit; }
 /* ===== Painel ===== */
 .painel { display: grid; gap: 1.25rem; }
 .vez {
-  border-left: 6px solid var(--cor-vez, var(--terra-firme));
-  background: var(--painel); border-radius: 0 12px 12px 0; padding: 0.9rem 1rem;
+  --emblema-fundo: var(--cor-vez);
+  display: flex; align-items: center; gap: 0.9rem;
+  background: var(--cor-vez); color: #fff; border-radius: 16px; padding: 0.85rem 1rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.18);
+  scroll-margin-top: 0.75rem;
 }
-.vez strong { display: block; font-family: var(--titulo); font-size: 1.35rem; line-height: 1.15; color: var(--cor-vez); }
-.vez span { color: var(--suave); }
+.vez-emblema { width: 3.6rem; height: 3.6rem; flex: none; color: #F7EBD3; }
+.vez-emblema:empty { display: none; }
+.vez-emblema svg { width: 100%; height: 100%; display: block; }
+.vez-texto { display: grid; gap: 0.1rem; }
+.vez-passo { font-size: 0.8rem; font-weight: 700; opacity: .85; }
+.vez strong { font-family: var(--titulo); font-size: 1.45rem; line-height: 1.1; }
+.vez-texto > span { color: rgba(255,255,255,.9); line-height: 1.35; }
+@media (prefers-reduced-motion: no-preference) {
+  .vez.chegou { animation: chegada .6s ease-out; }
+  .vez.chegou .vez-emblema { animation: emblema .6s ease-out; }
+  @keyframes chegada { 0% { transform: scale(.94); } 55% { transform: scale(1.03); } 100% { transform: none; } }
+  @keyframes emblema { 0% { transform: rotate(-12deg) scale(.7); } 60% { transform: rotate(6deg) scale(1.1); } 100% { transform: none; } }
+}
 .painel h2 { font-family: var(--titulo); font-weight: 600; font-size: 1.1rem; margin: 0 0 0.5rem; }
 
 .mao { display: flex; gap: 1rem; align-items: center; min-height: 6rem; }
@@ -148,6 +165,32 @@ a { color: inherit; }
 }
 .fim-caixa h2 { font-family: var(--titulo); font-size: 1.9rem; line-height: 1.1; margin: 0 0 0.6rem; }
 .fim-caixa ul { padding-left: 1.2rem; }
+.fim-caixa { max-height: calc(100vh - 2.5rem); max-height: calc(100dvh - 2.5rem); overflow-y: auto; }
+.fim-linha { font-family: var(--titulo); font-weight: 600; font-size: 1.15rem; margin: 1rem 0 0.4rem; display: flex; align-items: center; gap: 0.6rem; }
+.mapa-linha { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; width: 2.4rem; height: 2.4rem; flex: none; padding: 3px; background: var(--terra); border-radius: 5px; }
+.mapa-linha i { background: var(--casa); border-radius: 50%; }
+.mapa-linha i.on { background: var(--sol); }.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* bits da linha vencedora */
+.tabela-bits-caixa { overflow-x: auto; }
+.tabela-bits { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+.tabela-bits th, .tabela-bits td { padding: 0.3rem 0.4rem; text-align: center; border-bottom: 1px solid var(--linha); }
+.tabela-bits thead th { font-size: 0.75rem; color: var(--suave); font-weight: 700; }
+.tabela-bits tbody td { font-family: var(--titulo); font-size: 1.3rem; line-height: 1; }
+.tabela-bits tbody th { display: flex; align-items: center; gap: 0.4rem; text-align: left; font-weight: 400; }
+.tabela-bits code, .grade-bits code, .lista-bits code { font-family: Consolas, "Courier New", monospace; letter-spacing: 0.08em; }
+.tabela-bits .mini { width: 2rem; height: 2rem; flex: none; background: var(--casa); border-radius: 50%; padding: 0.12rem; }
+.tabela-bits .mini svg { width: 100%; height: 100%; display: block; }
+.tabela-bits .comum { background: rgba(242, 183, 5, .28); font-weight: 700; color: var(--tinta); }
+.tabela-bits tfoot th, .tabela-bits tfoot td { font-family: var(--texto); font-size: 0.78rem; border-bottom: 0; }
+.tabela-bits tfoot .misto { color: var(--suave); }
+
+/* bits do empate */
+.grade-bits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.3rem; background: var(--terra); padding: 0.4rem; border-radius: 10px; }
+.grade-bits code { background: var(--casa); color: #F1E4CC; border-radius: 6px; text-align: center; padding: 0.35rem 0; font-size: 0.95rem; }
+.conferir summary { cursor: pointer; font-weight: 700; }
+.lista-bits { list-style: none; padding: 0; font-size: 0.9rem; }
+.lista-bits li { padding: 0.2rem 0; border-bottom: 1px solid var(--linha); }
 
 /* ===== Tutorial ===== */
 .tutorial { max-width: 44rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }

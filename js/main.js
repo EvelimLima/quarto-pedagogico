@@ -25,6 +25,14 @@ function render() {
   renderVez(el.vez, estado);
   renderPlacar(el.placar, placar);
 }
+/** no celular, traz a faixa da vez de volta à tela quando ela some de vista. */
+function mostrarVez() {
+  const r = el.vez.getBoundingClientRect();
+  if (r.top < 0 || r.bottom > window.innerHeight) {
+    const suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.vez.scrollIntoView({ block: 'start', behavior: suave ? 'smooth' : 'auto' });
+  }
+}
 
 function focar(seletor) {
   document.querySelector(seletor)?.focus({ preventScroll: true });
@@ -47,11 +55,12 @@ function atualizar(novoEstado) {
     if (estado.resultado.tipo === 'vitoria') placar[estado.resultado.povo]++;
     else placar[2]++;
     renderPlacar(el.placar, placar);
-    preencherFim(el.fimTitulo, el.fimTexto, estado.resultado);
+    preencherFim(el.fimTitulo, el.fimTexto, estado.resultado, estado.tabuleiro);
     el.fim.hidden = false;
     $('#fim-nova').focus();
   } else if (estado.fase === 'posicionar') {
     focar('.casa.livre');
+    mostrarVez();
   } else {
     focar('.ficha.disponivel');
   }
@@ -66,6 +75,9 @@ el.reserva.addEventListener('click', e => {
   if (b) atualizar(escolherPeca(estado, Number(b.dataset.peca)));
 });
 $('#nova').addEventListener('click', novaPartida);
+el.mao.addEventListener('click', e => {
+  if (e.target.closest('#rever-bits')) {el.fim.hidden = false; $('#fim-nova').focus();}
+});
 $('#fim-nova').addEventListener('click', novaPartida);
 $('#fim-ver').addEventListener('click', () => { el.fim.hidden = true; $('#nova').focus(); });
 document.addEventListener('keydown', e => {

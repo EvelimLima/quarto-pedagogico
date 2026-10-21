@@ -7,7 +7,12 @@ import { pecaSVG } from './desenho.js';
 
 const maiuscula = t => t.charAt(0).toUpperCase() + t.slice(1);
 
-export function renderMao(el, estado) {
+export function renderMao(el, estado){
+  if (estado.fase === 'fim') {
+    el.innerHTML = '<button id="rever-bits" class="botao" type="button">Rever os bits da partida</button>';
+    return;
+  }
+  
   if (estado.mao === null) {
     el.innerHTML = '<p class="mao-vazia">Nenhuma peça em mãos.</p>';
     return;
@@ -22,3 +27,4 @@ export function renderMao(el, estado) {
       </div>
     </div>`;
 }
+
