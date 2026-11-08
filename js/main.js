@@ -6,6 +6,7 @@ import { criarPartida, escolherPeca, posicionarPeca } from './logica/regras.js';
 import { renderTabuleiro, renderReserva } from './tela/tabuleiro.js';
 import { renderMao } from './tela/bits.js';
 import { renderVez, renderPlacar, preencherFim } from './tela/painel.js';
+import { trocarAtributo } from './tela/grafo.js'
 
 const $ = sel => document.querySelector(sel);
 const el = {
@@ -13,6 +14,7 @@ const el = {
   vez: $('#vez'), placar: $('#placar'),
   fim: $('#fim'), fimTitulo: $('#fim-titulo'), fimTexto: $('#fim-texto'),
 };
+el.fimTexto.addEventListener('click', trocarAtributo);
 
 const placar = [0, 0, 0]; // Terra Firme, Igarapé, empates
 let quemComeca = 0;

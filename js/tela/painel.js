@@ -5,6 +5,7 @@ import { LEGENDA, bit, bits, descrever } from '../logica/pecas.js';
 import { POVOS } from '../logica/regras.js';
 import { LINHAS } from '../logica/vitoria.js';
 import { pecaSVG } from './desenho.js';
+import { htmlMapa } from './grafo.js'
 
 const COR_POVO = ['var(--tf-forte)', 'var(--ig-forte)'];
 
@@ -119,7 +120,8 @@ function tabelaVitoria(linha, tabuleiro) {
     <div class="tabela-bits-caixa">
       <table class="tabela-bits"><thead>${cabecalho}</thead><tbody>${corpo}</tbody><tfoot>${rodape}</tfoot></table>
     </div>
-    <p>Na ${linha.nome.toLowerCase()}, ${frases}.</p>`;
+    <p>Na ${linha.nome.toLowerCase()}, ${frases}.</p>
+    ${htmlMapa(ids, linha.comuns.map(c => c.i))}`;
 }
 
 /**no empate: o tabuleiro final escrito em bits e a conferência das 10 linhas. */

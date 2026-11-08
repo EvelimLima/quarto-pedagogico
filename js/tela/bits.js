@@ -9,7 +9,7 @@ const maiuscula = t => t.charAt(0).toUpperCase() + t.slice(1);
 
 export function renderMao(el, estado){
   if (estado.fase === 'fim') {
-    el.innerHTML = '<button id="rever-bits" class="botao" type="button">Rever os bits da partida</button>';
+    el.innerHTML = '<button id="rever-bits" class="botao" type="button">Rever bits e mapa mágico</button>';
     return;
   }
   

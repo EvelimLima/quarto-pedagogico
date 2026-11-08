@@ -30,35 +30,24 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --pagina: #5f806b; --tinta: #E4EADC; --suave: #A6B3A4; --painel: #18251C;
+    --pagina: #7bc998; --tinta: #1B2A1F; --suave: #61745e; --painel: #a8c2b0;
     --linha: #2C3D30; --terra-firme: #7DB388; --igarape: #62B6C8;
   }
 }
 :root[data-theme="dark"] {
-  --pagina: #101913; --tinta: #E4EADC; --suave: #A6B3A4; --painel: #18251C;
+  --pagina: #101913; --tinta: #1B2A1F; --suave: #A6B3A4; --painel: #181c25;
   --linha: #2C3D30; --terra-firme: #7DB388; --igarape: #62B6C8;
 }
 
 *, *::before, *::after { box-sizing: inherit; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 body {
-  margin: 0; background: var(--pagina); color: var(--tinta);
+  margin: 30px; background: var(--pagina); color: var(--tinta);
   font-family: var(--texto); font-size: 1.0625rem; line-height: 1.5;
 }
 button { font: inherit; color: inherit; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--sol); outline-offset: 3px; }
-
-/* ===== Cabeçalho: o encontro das águas ===== */
-.encontro { background: var(--rio-negro); color: #F1E4CC; }
-.encontro-texto { max-width: 68rem; margin: 0 auto; padding: 1.5rem 1.25rem 0.5rem; }
-.encontro h1 {
-  font-family: var(--titulo); font-weight: 800; font-size: clamp(2rem, 6vw, 3.25rem);
-  line-height: 1; margin: 0 0 0.5rem; letter-spacing: -0.01em;
-}
-.encontro h1 a { text-decoration: none; }
-.encontro p { margin: 0; max-width: 40rem; color: #D9C7A6; }
-.encontro svg { display: block; width: 100%; height: 44px; }
 
 /* ===== Jogo ===== */
 .jogo {
@@ -127,11 +116,14 @@ a { color: inherit; }
 .bit b { font-family: var(--titulo); font-size: 1.4rem; line-height: 1.1; }
 .bit small { font-size: 0.72rem; color: var(--suave); }
 
-.reserva { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+.reserva { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
 .ficha {
   border: 1px solid var(--linha); background: var(--painel); border-radius: 12px;
-  padding: 0.3rem; aspect-ratio: 1; cursor: default;
+  padding: 0.3rem; min-width: 0; cursor: default;
 }
+.reserva .ficha svg { height: auto; }               /* a altura vem do desenho, não de aspect-ratio */
+.ficha.usada::before { content: ""; display: block; padding-top: 100%; } /* casa vazia continua quadrada */
+
 .ficha.disponivel { cursor: pointer; }
 .ficha.disponivel:hover { border-color: var(--tinta); }
 .ficha.usada { border-style: dashed; background: transparent; }
@@ -191,6 +183,25 @@ a { color: inherit; }
 .conferir summary { cursor: pointer; font-weight: 700; }
 .lista-bits { list-style: none; padding: 0; font-size: 0.9rem; }
 .lista-bits li { padding: 0.2rem 0; border-bottom: 1px solid var(--linha); }
+
+  /* Mapa mágico (grafo da linha vencedora) */
+  .mapa { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--linha); }
+  .mapa-titulo { font-family: var(--titulo); font-weight: 600; font-size: 1.1rem; margin: 0 0 0.4rem; }
+  .g-abas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.35rem; }
+  .g-aba { border: 2px solid var(--linha); background: var(--pagina); border-radius: 999px; padding: 0.3rem 0; font-weight: 700; font-size: 0.82rem; cursor: pointer; min-width: 0; }
+  .g-aba[aria-pressed="true"] { border-color: var(--tinta); background: var(--tinta); color: var(--painel); }
+  .g-aba.vence::after { content: " ✓"; color: var(--sol); }
+  .g-svg { display: block; width: 100%; max-width: 300px; height: auto; margin: 0.4rem auto 0; }
+  .g-aresta { stroke: var(--casa-livre); stroke-width: 7; stroke-linecap: round; }
+  .g-aresta.completa { stroke: var(--sol); stroke-width: 10; }
+  .g-no { fill: var(--casa); }
+  .g-bit { fill: #fff; stroke: #1B2A1F; stroke-width: 1.5; }
+  .g-bit.completa { fill: var(--sol); }
+  .g-bit-txt { fill: #1B2A1F; font-family: var(--titulo); font-weight: 800; text-anchor: middle; dominant-baseline: central; }
+  .g-rotulo { fill: #fff; stroke: var(--linha); }
+  .g-rotulo-txt { fill: #1B2A1F; font-family: Consolas, "Courier New", monospace; text-anchor: middle; dominant-baseline: central; }
+  .g-legenda { font-size: 0.92rem; line-height: 1.4; margin: 0.4rem 0 0; }
+
 
 /* ===== Tutorial ===== */
 .tutorial { max-width: 44rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
