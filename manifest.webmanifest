@@ -1,0 +1,17 @@
+{
+  "name": "QUARTO Amazônico",
+  "short_name": "QUARTO",
+  "description": "Jogo QUARTO com a narrativa do Pajé Timbira, para aprender bits e grafos.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#563a28",
+  "theme_color": "#563a28",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

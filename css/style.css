@@ -45,6 +45,9 @@ body {
   margin: 30px; background: var(--pagina); color: var(--tinta);
   font-family: var(--texto); font-size: 1.0625rem; line-height: 1.5;
 }
+
+[hidden] { display: none !important; }  /* garante que hidden esconda até elementos com display próprio */
+
 button { font: inherit; color: inherit; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--sol); outline-offset: 3px; }
